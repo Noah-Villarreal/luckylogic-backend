@@ -6,7 +6,7 @@ from collections import Counter
 import os
 
 app = Flask(__name__)
-CORS(app)  # ✅ Allow React frontend to access backend on localhost:5001
+CORS(app)  # ✅ Allow React frontend to access backend
 
 # ✅ Path to cleaned Powerball data
 DATA_FILE = "src/data/CLEANED_Powerball_Numbers.csv"
@@ -40,20 +40,19 @@ def generate_lucky_picks():
     print("✅ Picks:", picks)
     return picks
 
-# 🌐 Optional: Web browser route
+# 🌐 Optional: Web route (not needed for API-only usage)
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html", picks=None)
 
-# 🌐 API route React calls
+# 🌐 API route for frontend
 @app.route("/api/pick", methods=["GET"])
 def api_pick():
     picks = generate_lucky_picks()
     return jsonify({"picks": picks})
 
-# 🚀 Run server
+# 🚀 Run server (Render-compatible)
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
-
-
+    port = int(os.environ.get("PORT", 5001))
+    app.run(debug=True, host="0.0.0.0", port=port)
 
