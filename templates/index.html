@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LuckyLogic - Powerball Picker</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+  <h1>🎰 Lucky Powerball Picks</h1>
+
+  <form method="POST" action="/">
+    <button type="submit">Generate Picks</button>
+  </form>
+
+  {% if picks %}
+    <h2>Today's Lucky Picks:</h2>
+    <ul>
+      {% for pick, power in picks %}
+        <li>{{ pick }} + Powerball: {{ power }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>
